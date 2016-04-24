@@ -10,16 +10,24 @@ import java.util.ArrayList;
 /**
  *
  * @author Nurislam
- */
+ */ 
 public class Saver {
     private DB db;
-    private ArrayList text;
+    private ArrayList<String> text;
+
+    public ArrayList getText() {
+        return text;
+    }
     
     public Saver(DB db){
         this.db = db;
+        text = this.db.read();
     }
     
-    private boolean checkDB(){
-        text = this.db.read();
+    public boolean checkDB(){
+        if(text.size() == 0){
+            return false;
+        }
+        else return true;
     }
 }
