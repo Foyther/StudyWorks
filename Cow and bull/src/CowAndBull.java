@@ -9,6 +9,16 @@ public class CowAndBull {
         boolean continuation = true;
         //Window tru = new Window();
         Game game = new Game();
+        Saver sav = new Saver(new DB("save.txt"));
+        if(sav.checkDB()){
+            System.out.println("Do you want to continue? (true or false)");
+            if(sc.nextBoolean()){
+                for(int i = 0; i < sav.getText().size()-1; i++){
+                    System.out.println(sav.getText().get(i));
+                }
+                game.setScore(Integer.valueOf((String)sav.getText().get(sav.getText().size()-1)));
+            }
+        }
         while(continuation){
             System.out.print("What level do you choose? (It's quarty of char) - ");
             Level lev = new Level();
@@ -19,7 +29,6 @@ public class CowAndBull {
             game.getRefresh().write("What level do you choose? (It's quarty char) - " + level);
             game.length(level);
             game.randomize();
-            ComputerMind mind = new ComputerMind(level,game);
             //Painting paint = new Painting();
             //paint.paintComponent();
 
@@ -36,6 +45,7 @@ public class CowAndBull {
 
             System.out.println("Do you want to try again? (true or false) ");
             continuation = sc.nextBoolean();
+            game.getRefresh().fresh();
         }
     }
 }
